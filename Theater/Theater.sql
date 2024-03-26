@@ -51,6 +51,11 @@ VALUES('2024-02-03 15:30:00',34,1,2,1),('2025-05-19 20:00:00',22,2,6,3),('2025-0
 
 INSERT INTO projection(time,countVisitor,movie_id,screen_id,theater_id)
 VALUES('2025-02-03 15:30:00',15,1,5,2);
+
+INSERT INTO projection(time,countVisitor,movie_id,screen_id,theater_id)
+VALUES('2023-10-03 12:30:00',66,1,5,2);
+
+
 -- some requests
 
 
@@ -65,6 +70,22 @@ FROM movie
 WHERE name='Fast and Furious 7')
 ORDER BY theater.name, screen.id;
 
+
+SELECT SUM(countVisitor)
+FROM projection 
+WHERE (screen_id,theater_id) IN(
+SELECT screen.id,theater_id
+FROM screen
+WHERE type='VIP'
+AND theater_id IN (
+SELECT theater.id
+FROM theater
+WHERE name='Kino arena The Mall'))
+AND movie_id IN (
+SELECT movie.id
+FROM movie
+WHERE name='Fast and furious'
+);
 
 
 
