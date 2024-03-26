@@ -37,6 +37,41 @@ FOREIGN KEY (screen_id,theater_id) REFERENCES screen(id,theater_id),
 PRIMARY KEY(time,screen_id,theater_id)
 );
 
+INSERT INTO theater(name,city)
+VALUES('Arena Sofia','Sofia'),('Kino arena The Mall','Sofia'),('Kino arena Paradise Mall','Sofia'),('Arena Plovdiv','Plovdiv');
+
+INSERT INTO movie(name,year,country)
+VALUES('Fast and furious 7',2,'USA'),('Wildlings',1,'Bulgaria'),('Downfall',4,'Germany'),('The boogyeman',1,'USA');
+
+INSERT INTO screen(id,type,theater_id)
+VALUES(2,'normal',1),(5,'VIP',2),(6,'deluxe',3);
+
+INSERT INTO projection(time,countVisitor,movie_id,screen_id,theater_id)
+VALUES('2024-02-03 15:30:00',34,1,2,1),('2025-05-19 20:00:00',22,2,6,3),('2025-09-08 22:30:00',45,4,5,2);
+
+-- some requests
+
+
+SELECT  theater.name, screen.id, projection.time
+FROM theater JOIN screen
+ON theater.id=screen.theater_id
+JOIN projection
+ON (screen.id,screen.theater_id)=(projection.screen_id,projection.theater_id)
+WHERE screen.type IN ('deluxe','VIP') AND projection.movie_id IN (
+SELECT movie.id 
+FROM movie
+WHERE name='Fast and Furious 7')
+ORDER BY theater.name, screen.id;
+
+
+
+
+
+
+
+
+
+
 
 
 
