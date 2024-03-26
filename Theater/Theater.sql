@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS theater;
+CREATE DATABASE theater;
+USE theater;
