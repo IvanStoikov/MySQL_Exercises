@@ -49,6 +49,8 @@ VALUES(2,'normal',1),(5,'VIP',2),(6,'deluxe',3);
 INSERT INTO projection(time,countVisitor,movie_id,screen_id,theater_id)
 VALUES('2024-02-03 15:30:00',34,1,2,1),('2025-05-19 20:00:00',22,2,6,3),('2025-09-08 22:30:00',45,4,5,2);
 
+INSERT INTO projection(time,countVisitor,movie_id,screen_id,theater_id)
+VALUES('2025-02-03 15:30:00',15,1,5,2);
 -- some requests
 
 
