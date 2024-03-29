@@ -94,8 +94,36 @@ VALUES(1,1),(3,2),(2,3),(4,4),(5,5);
 INSERT INTO articleComments(comments_id,articles_id)
 VALUES(1,1),(2,2),(5,3),(4,4),(3,5);
 
+-- request1 (assignment 1)
+CREATE VIEW articleView AS
+SELECT article.title, categories.name AS categoriesName, users.username AS userName
+FROM article 
+JOIN users
+ON article.users_id=users.id
+JOIN categories
+ON article.categories_id=(SELECT categories.id FROM categories WHERE categories.name='sport')
+LIMIT 20;
 
+-- request 2 (assignment 2)
 
+SELECT users.username,comments.content, COUNT(comments.id)
+FROM users LEFT JOIN comments
+ON users.id=comments.users_id
+WHERE users.type='reader'
+GROUP BY comments.id,users.id;
 
+-- request 3 (assignment 3)
+
+SELECT article.title, article.viewCounter, COUNT(comments.id) AS count
+FROM article 
+JOIN comments
+ON article.id IN(
+SELECT articleComments.articles_id FROM articleComments
+WHERE articleComments.comments_id=comments.id)
+JOIN categories
+ON article.categories_id=(SELECT categories.id FROM categories WHERE categories.name='culture')
+GROUP BY article.id, comments.id, categories.id
+HAVING count>50
+LIMIT 3;
 
 
